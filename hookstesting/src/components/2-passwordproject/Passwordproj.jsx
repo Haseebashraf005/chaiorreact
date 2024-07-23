@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useMemo } from "react";
 import { useState } from "react";
 
@@ -7,6 +7,8 @@ const Passwordproj = () => {
   let [length, setLength] = useState(8);
   let [numberallowed, setNumberAllowed] = useState(false);
   let [charallowed, setCharAllowed] = useState(false);
+
+  let passwordref = useRef()
 
   let passwordGenerator = useCallback(() => {
     let pass = "";
@@ -22,7 +24,24 @@ const Passwordproj = () => {
       // console.log(pass)
     }
     setPasswordInput(pass);
-  }, [length, numberallowed, charallowed]);
+  }, [length, numberallowed, charallowed,]);
+
+  let copyPasswordToClicpBoard = ()=>{
+
+    // copy to clip board scripting
+    window.navigator.clipboard.writeText(passwordinput)
+    passwordref.current?.select()
+    // passwordref.current?.focus()
+    // passwordref.current?.setSelectionRange(0,5)
+
+  }
+
+
+  useEffect(()=>{
+    passwordGenerator()
+    // console.log("text")
+  },[length, numberallowed, charallowed])
+
 
   return (
     <>
@@ -35,14 +54,19 @@ const Passwordproj = () => {
       <div className="max-w-3xl mx-auto shadow-md rounded-lg px-12  py-5 my-8 text-orange-500 bg-gray-700">
         <div className="flex shadow rounded-lg overflow-hidden">
           <input
-            type="text"
-            // value=""
+           type="text"
+            value={passwordinput}
             className="outline-none w-full py-3 px-3 text-2xl"
             placeholder="password"
-          // readOnly
+            readOnly
+            ref={passwordref}
+          
           />
 
-          <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
+          <button 
+          className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
+          onClick={copyPasswordToClicpBoard}
+          >
             Copy
           </button>
         </div>
@@ -91,7 +115,7 @@ const Passwordproj = () => {
 
         </div>
       </div>
-    </>
+    </> 
   );
 };
 
