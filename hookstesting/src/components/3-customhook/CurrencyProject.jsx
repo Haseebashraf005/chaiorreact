@@ -40,12 +40,14 @@ const CurrencyProject = () => {
                         }} 
                     >
                         <div className="w-full mb-1">
-                            <InputBox
+                            <Input
                             label="From"
                             amount={amount}
                             currencyOptions={currencyOptions}
                             onCurrencyChange={(currency)=>setAmount(amount)}
                             selectCurrency={from}
+                            onAmmoutChange={(amount)=>setAmount(amount)}
+                            
                             
                             />
                         </div>
@@ -59,12 +61,13 @@ const CurrencyProject = () => {
                             </button>
                         </div>
                         <div className="w-full mt-1 mb-4">
-                        <InputBox
+                        <Input
                             label="To"
                             amount={convertedAmount  }
                             currencyOptions={currencyOptions}
                             onCurrencyChange={(currency)=>setTo(currency)}
                             selectCurrency={from}
+                            amoutDisable
                             
                             />
                         </div>
@@ -72,7 +75,7 @@ const CurrencyProject = () => {
                             type="submit"
                             className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
                         >
-                            Convert
+                            Convert {from.toUpperCase()} to {to.toUpperCase}
                         </button>
                     </form>
                 </div>
